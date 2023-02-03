@@ -21,9 +21,11 @@
     
     @foreach ($themes as $theme)
         <div class="mt-4">
-            <a href="/section/{{ $theme->name }}">{{ $theme->name }}</a>
+            <a href="/section/{{ $section }}/{{ $theme->name }}">{{ $theme->name }}</a>
         </div>
     @endforeach
     
-    {{$themes->links()}}
-</x-hyest-layout>
+    <div class="mt-4">
+        {{$themes->links()}}
+    </div>
+</x-guest-layout>

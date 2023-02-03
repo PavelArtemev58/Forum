@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->name('posts');
+
 Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
+
+Route::get('/profile/{name}', [ProfileController::class, 'showProfile'])->name('profile');
 
 require __DIR__.'/auth.php';
