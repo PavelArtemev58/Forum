@@ -25,5 +25,5 @@
         </div>
     @endforeach
     
-    
+    {{$themes->links()}}
 </x-hyest-layout>
