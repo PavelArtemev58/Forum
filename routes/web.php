@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,6 @@ Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->
 
 Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
 
-Route::get('/profile/{name}', [ProfileController::class, 'showProfile'])->name('profile');
+Route::get('/user/{id}', [UserController::class, 'showProfile'])->name('profile');
 
 require __DIR__.'/auth.php';
