@@ -18,4 +18,15 @@ class PostController extends Controller
         
         return view ('main.posts', ['posts'=>$posts, 'theme'=>$theme]);
     }
+    
+    public function showPostsGuest($section, $theme)
+    {
+        $posts = Theme::where('name', '=', $theme)
+                ->first()
+                ->posts()
+                ->orderBy('updated_at')
+                ->paginate(3);
+        
+        return view ('guest.posts', ['posts'=>$posts, 'theme'=>$theme]);
+    }
 }

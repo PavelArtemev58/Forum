@@ -18,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'showHome'])->name('home');
+Route::middleware('ifguest')->group(function(){
+    Route::get('/', [MainController::class, 'showHome'])->name('home');
+    Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->name('posts');
+    Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
+    Route::get('/user/{id}', [UserController::class, 'showProfile'])->name('profile');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,10 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->name('posts');
-
-Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
-
-Route::get('/user/{id}', [UserController::class, 'showProfile'])->name('profile');
+Route::prefix('guest')->middleware('ifuser')->group(function(){
+    Route::get('/', [MainController::class, 'showHomeGuest'])->name('homeGuest');
+    Route::get('/section/{section}/{theme}', [PostController::class, 'showPostsGuest'])->name('postsGuest');
+    Route::get('/section/{section}', [ThemeController::class, 'showThemesGuest'])->name('themesGuest');
+});
 
 require __DIR__.'/auth.php';

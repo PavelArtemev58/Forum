@@ -13,4 +13,11 @@ class MainController extends Controller
         
         return view('main.home', ['sections'=>$sections]);
     }
+    
+    public function showHomeGuest()
+    {
+        $sections = Section::get('name');
+        
+        return view('guest.home', ['sections'=>$sections]);
+    }
 }

@@ -17,4 +17,14 @@ class ThemeController extends Controller
         
         return view ('main.themes', ['themes'=>$themes, 'section'=>$section]);
     }
+    
+    public function showThemesGuest($section)
+    {
+        $themes = Section::where('name', '=', $section)
+                ->first()
+                ->themes()
+                ->paginate(2);
+        
+        return view ('guest.themes', ['themes'=>$themes, 'section'=>$section]);
+    }
 }
