@@ -22,7 +22,8 @@ Route::middleware('ifguest')->group(function(){
     Route::get('/', [MainController::class, 'showHome'])->name('home');
     Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->name('posts');
     Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
-    Route::post('/section/{section}', [ThemeController::class, 'storeTheme']);
+    Route::post('/addtheme/{section}', [ThemeController::class, 'storeTheme']);
+    Route::post('/addpost/{theme}', [PostController::class, 'storePost']);
     Route::get('/user/{id}', [UserController::class, 'showProfile'])->name('profile');
 });
 

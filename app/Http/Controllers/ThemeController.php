@@ -14,8 +14,7 @@ class ThemeController extends Controller
         $themes = Section::where('name', '=', $section)
                 ->first()
                 ->themes()
-                ->paginate(2);
-        
+                ->paginate(3);
         return view ('main.themes', ['themes'=>$themes, 'section'=>$section]);
     }
     
@@ -24,7 +23,7 @@ class ThemeController extends Controller
         $themes = Section::where('name', '=', $section)
                 ->first()
                 ->themes()
-                ->paginate(2);
+                ->paginate(3);
         
         return view ('guest.themes', ['themes'=>$themes, 'section'=>$section]);
     }
@@ -44,6 +43,6 @@ class ThemeController extends Controller
         $theme->user_id = Auth::user()->id;
         $theme->save();
         
-        return redirect()->route('themes', ['section'=>$section]);
+        return redirect()->back();
     }
 }
