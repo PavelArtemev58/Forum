@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('ifguest')->group(function(){
     Route::get('/', [MainController::class, 'showHome'])->name('home');
+    Route::post('/deletepost/{id}', [PostController::class, 'deletePost']);
+    Route::post('/changepost/{id}', [PostController::class, 'changePost']);
+    Route::post('/deletetheme/{id}', [ThemeController::class, 'deleteTheme']);
+    Route::post('/changetheme/{id}', [ThemeController::class, 'changeTheme']);
     Route::get('/section/{section}/{theme}', [PostController::class, 'showPosts'])->name('posts');
     Route::get('/section/{section}', [ThemeController::class, 'showThemes'])->name('themes');
     Route::post('/addtheme/{section}', [ThemeController::class, 'storeTheme']);

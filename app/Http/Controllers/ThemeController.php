@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Theme;
 use App\Models\Section;
+use App\Models\Post;
 
 class ThemeController extends Controller
 {
@@ -42,6 +43,34 @@ class ThemeController extends Controller
         $theme->section_id = $section_id;
         $theme->user_id = Auth::user()->id;
         $theme->save();
+        
+        return redirect()->back();
+    }
+    
+    public function changeTheme(Request $request, $id)
+    {
+        if(isset($request->change)){
+            $validated = $request->validate([
+                'name' => ['required', 'min:5', 'max:255'],
+            ]);
+            
+            $theme = Theme::find($id);
+            $theme->name = $validated['name'];
+            $theme->save();
+            
+            return redirect()->route('themes', ['section'=>$theme->section->name]);
+        }
+        
+        $theme = Theme::find($id);
+        
+        return view ('main.changetheme', ['theme'=>$theme]);
+    }
+    
+    public function deleteTheme($id)
+    {
+        Post::where('theme_id', '=', $id)->delete();
+        
+        Theme::destroy($id);
         
         return redirect()->back();
     }

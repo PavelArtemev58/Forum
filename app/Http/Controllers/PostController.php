@@ -48,4 +48,33 @@ class PostController extends Controller
         
         return redirect()->back();
     }
+    
+    public function changePost(Request $request, $id)
+    {
+        if(isset($request->change)){
+            $validated = $request->validate([
+                'text' => 'required',
+            ]);
+            
+            $post = Post::find($id);
+            $post->text = $validated['text'];
+            $post->save();
+            
+            $themeName = $post->theme->name;
+            $sectionName = Theme::whereName($themeName)->first()->section->name;
+            
+            return redirect()->route('posts',['section'=>$sectionName, 'theme'=>$themeName]);
+        }
+        
+        $post = Post::find($id);
+        
+        return view('main.changepost', ['post'=>$post]);
+    }
+    
+    public function deletePost($id)
+    {
+        Post::destroy($id);
+        
+        return redirect()->back();
+    }
 }
